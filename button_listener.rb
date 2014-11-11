@@ -3,9 +3,9 @@ require 'dream_cheeky'
 
 class ButtonListener
   def self.listen
-    if `which omxplayer`
+    if !`which omxplayer`.empty?
       player = 'omxplayer'
-    elsif `which afplay`
+    elsif !`which afplay`.empty?
       player = 'afplay'
     else
       raise "Can't find omxplayer or afplay"
@@ -23,7 +23,7 @@ class ButtonListener
 
       push do
         time = Time.now
-        if true # debug mode
+        if ENV['DEBUG'] == true
           sound = %w/marvels-intro1 yay hulkroar avengers/.sample
           sound = "sounds/#{sound}.mp3"
           `#{player} #{sound}`
