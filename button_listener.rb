@@ -17,7 +17,7 @@ class ButtonListener
         time = Time.now
         if true # debug mode
           sound = %w/marvels-intro1 yay hulkroar avengers/.sample
-          sound = "soundss/#{sound}.mp3"
+          sound = "sounds/#{sound}.mp3"
           `afplay #{sound}`
         else
           if time.hour == 9 && time.min.between?(25,35) # approx stand up time
