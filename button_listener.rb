@@ -3,6 +3,14 @@ require 'dream_cheeky'
 
 class ButtonListener
   def self.listen
+    if `which omxplayer`
+      player = 'omxplayer'
+    elsif `which afplay`
+      player = 'afplay'
+    else
+      raise "Can't find omxplayer or afplay"
+    end
+
     DreamCheeky::BigRedButton.run do
 
       open do
@@ -18,7 +26,7 @@ class ButtonListener
         if true # debug mode
           sound = %w/marvels-intro1 yay hulkroar avengers/.sample
           sound = "sounds/#{sound}.mp3"
-          `afplay #{sound}`
+          `#{player} #{sound}`
         else
           if time.hour == 9 && time.min.between?(25,35) # approx stand up time
             sound = 'marvels-intro1'
@@ -28,7 +36,7 @@ class ButtonListener
             sound = 'hulkroar.mp3'
           end
           sound = "sounds/#{sound}.mp3"
-          `afplay #{sound}`
+          `#{player} #{sound}`
         end
       end
     end
