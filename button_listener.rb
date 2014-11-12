@@ -11,6 +11,9 @@ class ButtonListener
       raise "Can't find omxplayer or afplay"
     end
 
+    # Notify we're ready by playing a beep
+    `#{player} sounds/beep-01a.mp3`
+
     DreamCheeky::BigRedButton.run do
 
       open do
@@ -23,7 +26,7 @@ class ButtonListener
 
       push do
         time = Time.now
-        if ENV['DEBUG'] == true
+        if ENV['DEBUG']
           sound = %w/marvels-intro1 yay hulkroar avengers/.sample
           sound = "sounds/#{sound}.mp3"
           `#{player} #{sound}`
@@ -31,9 +34,9 @@ class ButtonListener
           if time.hour == 9 && time.min.between?(25,35) # approx stand up time
             sound = 'marvels-intro1'
           elsif time.day == 5 && time.hour > 15 # Friday after 3pm
-            sound = 'yay.mp3'
+            sound = 'yay'
           else
-            sound = 'hulkroar.mp3'
+            sound = 'hulkroar'
           end
           sound = "sounds/#{sound}.mp3"
           `#{player} #{sound}`
