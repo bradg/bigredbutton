@@ -12,6 +12,7 @@ class ButtonListener
     end
 
     # Notify we're ready by playing a beep
+    puts "ButtonLister listening"
     `#{player} sounds/beep-01a.mp3`
 
     DreamCheeky::BigRedButton.run do
@@ -26,9 +27,10 @@ class ButtonListener
 
       push do
         time = Time.now
-        if ENV['DEBUG']
+        if ENV['DEBUG'] # debug mode
           sound = %w/marvels-intro1 yay hulkroar avengers/.sample
           sound = "sounds/#{sound}.mp3"
+          puts "Playing #{sound}"
           `#{player} #{sound}`
         else
           if time.hour == 9 && time.min.between?(25,35) # approx stand up time
@@ -39,6 +41,7 @@ class ButtonListener
             sound = 'hulkroar'
           end
           sound = "sounds/#{sound}.mp3"
+          puts "Playing #{sound}"
           `#{player} #{sound}`
         end
       end
