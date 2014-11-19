@@ -28,12 +28,12 @@ class ButtonListener
 
     # Notify we're ready by playing a beep
     puts "ButtonLister listening"
-    play :beep
+    play :click
 
     # Count how many times the lid has been opened and the time of first lid-opening
     lid_count = 0
     last_opened = Time.now
-    mode_change_seconds = 3
+    mode_change_seconds = 5
 
     DreamCheeky::BigRedButton.run do
 
@@ -45,7 +45,7 @@ class ButtonListener
           last_opened = Time.now
         end
         puts "Lid count: #{lid_count}"
-        lid_count.times { play :click }
+        lid_count.times { ButtonListener.play :click }
       end
 
       close do
@@ -62,7 +62,7 @@ class ButtonListener
         else
           sound = :hulk
         end
-        play sound
+        ButtonListener.play sound
       end
     end
   end
