@@ -15,10 +15,27 @@ class ButtonListener
     puts "ButtonLister listening"
     `#{player} sounds/beep-01a.mp3`
 
-    DreamCheeky::BigRedButton.run do
+    # Count how many times the lid has been opened and the time of first lid-opening
+    lid_count = 0
+    last_opened = Time.now
+    mode_change_seconds = 3
+
+    #if ENV["DEBUG"]
+      #bigredbutton = FakeBigRedButton
+    #else
+      bigredbutton = DreamCheeky::BigRedButton
+    #end
+
+    bigredbutton.run do
 
       open do
-        #`say "Armed!"`
+        if last_opened > (Time.now - mode_change_seconds)
+          lid_count += 1
+        else
+          lid_count = 1
+          last_opened = Time.now
+        end
+        puts "Lid count: #{lid_count}"
       end
 
       close do
@@ -26,16 +43,17 @@ class ButtonListener
       end
 
       push do
-        time = Time.now
         if ENV['DEBUG'] # debug mode
           sound = %w/marvels-intro1 yay hulkroar avengers/.sample
           sound = "sounds/#{sound}.mp3"
           puts "Playing #{sound}"
           `#{player} #{sound}`
         else
-          if time.hour == 9 && time.min.between?(25,35) # approx stand up time
+          if lid_count == 2
             sound = 'marvels-intro1'
-          elsif time.day == 5 && time.hour > 15 # Friday after 3pm
+          elsif lid_count == 3
+            sound = 'avengers'
+          elsif lid_count == 4
             sound = 'yay'
           else
             sound = 'hulkroar'
