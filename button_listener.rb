@@ -1,31 +1,6 @@
 require 'rubygems'
 require 'dream_cheeky'
 
-class FakeBigRedButton
-  def self.run
-    def open(&block); @openblock = block; end
-    def close(&block); @closeblock= block; end
-    def push(&block); @pushblock= block; end
-    puts "Creating listeners"
-    yield
-    puts "waiting for input"
-    while true
-      case command = STDIN.getc.chr
-      when 'o'
-        @openblock.call
-      when 'c'
-        @closeblock.call
-      when 'p'
-        @pushblock.call
-      when "\n"
-        # ignore
-      else
-        puts "Unknown command #{command}. use o c or p"
-      end
-    end
-  end
-end
-
 class ButtonListener
   def self.listen
     if !`which omxplayer`.empty?
@@ -45,11 +20,11 @@ class ButtonListener
     last_opened = Time.now
     mode_change_seconds = 3
 
-    if ENV["DEBUG"]
-      bigredbutton = FakeBigRedButton
-    else
+    #if ENV["DEBUG"]
+      #bigredbutton = FakeBigRedButton
+    #else
       bigredbutton = DreamCheeky::BigRedButton
-    end
+    #end
 
     bigredbutton.run do
 
