@@ -45,7 +45,7 @@ class ButtonListener
           last_opened = Time.now
         end
         puts "Lid count: #{lid_count}"
-        lid_count.times { play :click }
+        lid_count.times { ButtonListener.play :click }
       end
 
       close do
@@ -62,7 +62,7 @@ class ButtonListener
         else
           sound = :hulk
         end
-        play sound
+        ButtonListener.play sound
       end
     end
   end
