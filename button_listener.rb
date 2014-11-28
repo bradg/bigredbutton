@@ -8,7 +8,7 @@ class ButtonListener
                beep:  'beep-01a.mp3',
                theme: 'marvels-intro1.mp3',
                yay:   'yay.mp3',
-               hulk:  'huklroar.mp3',
+               hulk:  'hulkroar.mp3',
                avengers: 'avengers.mp3',
     }
 
