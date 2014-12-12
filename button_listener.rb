@@ -54,7 +54,7 @@ class ButtonListener
 
       push do
         if lid_count == 2
-          sound = :intro
+          sound = :theme
         elsif lid_count == 3
           sound = :avengers
         elsif lid_count == 4
